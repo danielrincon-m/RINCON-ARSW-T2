@@ -2,6 +2,7 @@
 *.asta
 
 keyscerts/
+diagrams/
 
 ##############################
 ## Java
