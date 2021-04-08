@@ -1,0 +1,5 @@
+edu.eci.arsw.weather
+edu.eci.arsw.weather.cache
+edu.eci.arsw.weather.controller
+edu.eci.arsw.weather.external
+edu.eci.arsw.weather.services

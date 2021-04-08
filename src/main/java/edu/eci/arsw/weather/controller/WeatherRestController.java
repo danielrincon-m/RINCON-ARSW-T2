@@ -9,12 +9,21 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import edu.eci.arsw.weather.services.WeatherService;
 
+/**
+ * Clase de controlador para las peticiones realizadas al servidor
+ */
 @RestController
 public class WeatherRestController {
 
     @Autowired
     WeatherService weatherService;
 
+    /**
+     * Método que procesa las peticiones realizadas para obtener el clima de una ubicación
+     * 
+     * @param location La ubicación de la cual se desea obtener el clima
+     * @return Una cadena en formato JSON con la información solicitada
+     */
     @RequestMapping(value = "/get/weather/{location}", method = RequestMethod.GET)
     public ResponseEntity<?> getWeather(@PathVariable String location) {
         try {
