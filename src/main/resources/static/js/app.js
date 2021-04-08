@@ -49,6 +49,7 @@ let app = (function () {
         $("#table_1").find("tbody").html(firstRowData(data));
         $("#table_2").find("tbody").html(secondRowData(data));
         $("#table_3").find("tbody").html(thirdRowData(data));
+        $("#tables-container").css("display", "block");
     };
 
     let setWeatherMap = function (JSONdata) {

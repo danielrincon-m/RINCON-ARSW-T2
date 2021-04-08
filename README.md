@@ -1,79 +1,24 @@
 # Clima API
 
-[![danielrincon-m](https://circleci.com/gh/danielrincon-m/AREP_LAB4.svg?style=svg)](https://app.circleci.com/pipelines/github/danielrincon-m/AREP_LAB4)
-<!-- [![Heroku](img/heroku_long.png)](https://nanospring.herokuapp.com/nspapp/register) -->
+[![danielrincon-m](https://circleci.com/gh/danielrincon-m/RINCON-ARSW-T2.svg?style=svg)](https://app.circleci.com/pipelines/github/danielrincon-m/RINCON-ARSW-T2)
+[![Heroku](img/heroku_long.png)](https://rincon-arsw-t2.herokuapp.com/)
 
-## Descripción ☁️
+## Descripción 🆒
 
-En este laboratorio será desarrollado un prototipo de aplicación web basada en microservicios, para la cual utilizaremos la nube de Amazon. El proyecto estará compuesto por una página web pública corriendo en un contenedor Amazon S3 con la cual podrá interactuar el usuario, un servicio en Spark montado sobre una máquina virtual Amazon EC2, y un servicio de API Gateway, el cual será el puente entre los otros dos componentes.
+Se desarrolló una aplicación de trata de una interfaz entre el cliente y dos API externas: la primera es la API de OpenWeather para obtener el clima de un lugar, mostrándonos varios datos del clima actual de esa ubicación, la seguna es la API de Google Maps para visualizar el sitio en un mapa global.
 
 La arquitectura de los servicios se muestra a continuación:
 
-![Arquitectura](img/arquitectura.png)
+![Arquitectura](img/WeatherDiagrams.svg)
 
 
-## Implementación 🛡️
+## Implementación ⌨️
 
-La arquitectura de la aplicación se basa en la abstracción de una API por medio del API Gateway de Amazon, y la presentación de una interfaz amigable con el usuario por medio de una página web.
+Para la implementación, contamos con un front-end, que nos mostrará todos los datos necesarios para dar un vistazo al clima de una ubicación, junto a un mapa de esta ubicación, este front-end se conectará a una API funcionando en Heroku, la cual se comunicará a su vez con la API correspondiente en OpenWeather, y que cuenta con un sistema de caché en memoria que guarda durante 5 minutos las peticiones realizadas para evitar la sobrecarga en el API externo.
 
-Vamos a realizar un breve recorrido por cada uno de los servicios.
+## Extensibilidad 
 
-### Temperature Service
-
-Se trata de un servicio web simple que responde a una sola petición GET en la ruta */convert/farenheit/celsius*, el servicio espera un parámetro: la temperatura que se desea convertir, el programa valida que el dato ingresado sea válido, y que se haya ingresado un dato, de lo contrario retorna mensajes de error.
-
-El servicio web está construido sobre [Spark Java](#herramientas-utilizadas-%EF%B8%8F), fué empaquetado y subido a la máquina virtual de AWS para su ejecución.
-
-### API Gateway
-
-Este servicio abstrae la API del [Temperature Service](#Temperature-Service), creando una interfaz para que otras aplicaciones puedan acceder al servicio, quitando el riesgo de que tengan un acceso mas allá del que se espera al servidor del servicio.
-
-### Web Service
-
-Se trata de una aplicación web amigable con el usuario, la cual nos presenta un formulario solicitando el valor de temperatura que deseamos convertir, en la misma ventana será presentada la respuesta una vez enviemos nuestra solicitud.
-
-## Reporte de pruebas ⭕
-
-El proyecto fué probado de dos maneras, las cuales se podrán ver a continuación:
-
-### Pruebas unitarias
-
-Se utilizó el framework [REST Assured](#herramientas-utilizadas-%EF%B8%8F) para realizar pruebas sobre la API REST desarrollada, se comprobó que las peticiones estuviesen siendo procesadas y que las respuestas de las conversiones fueran correctas, a continuación, podremos ver el código fuente de las pruebas:
-
-``` Java
-@Test
-public void valuesTest() {
-    HashMap<Float, Float> values = new HashMap<>();
-    values.put(0f, -17.7778f);
-    values.put(5f, -15f);
-    values.put(8f, -13.3333f);
-    values.put(20f, -6.66667f);
-    values.put(55f, 12.7778f);
-    values.put(78.152f, 25.64f);
-    values.put(158f, 70f);
-    values.put(2548.8556f, 1398.25311111f);
-
-    values.forEach((key, value) -> {
-        JsonConfig jsonConfig = JsonConfig.jsonConfig()
-                .numberReturnType(JsonPathConfig.NumberReturnType.BIG_DECIMAL);
-
-        given().config(RestAssured.config().jsonConfig(jsonConfig)).port(5000)
-                .param("value", key).when().get("/convert/farenheit/celsius").then()
-                .body("farenheitDegrees",
-                        closeTo(BigDecimal.valueOf(key), BigDecimal.valueOf(0.01f)))
-                .body("celsiusDegrees",
-                        closeTo(BigDecimal.valueOf(value), BigDecimal.valueOf(0.01f)));
-    });
-}
-```
-
-### Pruebas de funcionamiento
-
-Las pruebas de funcionamiento se realizaron con todo el sistema montado, probando diferentes valores, tanto válidos como no válidos, se realizaron de manera similar al estilo mostrado en el [Video de Demostración](#video-de-demostración-).
-
-## Video de demostración 📹
-
-Se realizó un video demostrando y explicando el funcionamiento de todo el sistema, este video puede ser encontrado [AQUÍ](demostracion.mp4).
+El proyecto puede ser extendido colocando una capa de clima sobre el mapa mostrado, también podría actualizarse en tiempo real el clima de las ubicaciones, y poder mostrar múltiples ubicaciones a al vez.
 
 ## Descarga del proyecto ⬇️
 
@@ -82,6 +27,22 @@ Clone el proyecto utilizando el siguiente comando:
 ```
 git clone https://github.com/danielrincon-m/AREP_LAB7.git
 ```
+
+## Ejecución del proyecto ▶️
+
+Para ejecutar el proyecto deberá contar con una instalación de Maven en su sistema, puede obtenerlo desde la [página oficial.][mvnLink]
+
+Luego de tener el proyecto, debe navegar al directorio principal y ejecutar el comando:
+
+```
+mvn spring-boot:run
+```
+<!--
+## Reporte de pruebas ⭕
+
+Se utilizó el framework [REST Assured](#herramientas-utilizadas-%EF%B8%8F) para realizar pruebas sobre la API REST desarrollada, se comprobó que las peticiones estuviesen siendo procesadas y que las respuestas fuesen válidas.
+
+-->
 
 ## Correr las pruebas unitarias 🧪
 
@@ -92,7 +53,7 @@ la [página oficial.][mvnLink]
 
 ### Ejecución de pruebas
 
-Las pruebas pueden ser ejecutadas desde la sección de pruebas de su IDE o si tiene maven puede navegar a la carpeta principal de TempConverter y ejecutar el comando
+Las pruebas pueden ser ejecutadas desde la sección de pruebas de su IDE o si tiene maven puede navegar a la carpeta principal del proyecto y ejecutar el comando
 
 ```
 mvn test
@@ -100,7 +61,7 @@ mvn test
 
 ## Documentación del código fuente 🌎
 
-La documentación del proyecto puede ser encontrada en la carpeta [TempConverter/docs](TempConverter/docs).
+La documentación del proyecto puede ser encontrada en la carpeta [docs](/docs).
 
 También puede ser generada con Maven, clonando el proyecto y ejecutando el siguiente comando en la carpeta TempConverter:
 
@@ -108,18 +69,13 @@ También puede ser generada con Maven, clonando el proyecto y ejecutando el sigu
 mvn javadoc:javadoc
 ```
 
-## Documento de diseño 📄
-
-Este laboratorio no cuenta con documento de diseño.
-
 ## Herramientas utilizadas 🛠️
 
 * [Visual Studio Code](https://code.visualstudio.com/) - IDE de desarrollo
 * [Maven](https://maven.apache.org/) - Manejo de Dependencias
 * [JUnit](https://junit.org/junit4/) - Pruebas unitarias
 * [GitHub](https://github.com/) - Repositorio de código
-* [Spark](https://sparkjava.com/) - Framework web
-* [AWS](https://aws.amazon.com/es/) - Despliegue en la nube
+* [Spring-boot](https://spring.io/projects/spring-boot) - Framework web
 * [REST Assured](https://rest-assured.io/) - Herramienta de pruebas para el API REST
 
 ## Autor 🧔
