@@ -5,7 +5,7 @@
 
 ## Descripción 🆒
 
-Se desarrolló una aplicación de trata de una interfaz entre el cliente y dos API externas: la primera es la API de OpenWeather para obtener el clima de un lugar, mostrándonos varios datos del clima actual de esa ubicación, la seguna es la API de Google Maps para visualizar el sitio en un mapa global.
+Se desarrolló una aplicación que trata de una interfaz entre el cliente y dos API externas: la primera es la API de OpenWeather para obtener el clima de un lugar, mostrándonos varios datos del clima actual de esa ubicación, la seguna es la API de Google Maps para visualizar el sitio en un mapa global.
 
 La arquitectura de los servicios se muestra a continuación:
 
