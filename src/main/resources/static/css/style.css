@@ -1,0 +1,11 @@
+.section {
+    margin-top: 50px;
+    margin-bottom: 50px;
+    padding: 35px 15px;
+    border: solid 1px gray;
+    border-radius: 15px;
+}
+
+.section h1 {
+    margin: 30px auto;
+}

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Weather Map</title>
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+
+    <!-- JS -->
+    <script src="/js/app.js"></script>
+    <script src="/js/actions.js"></script>
+</head>
+
+<body>
+    <div class="container section">
+        <h1 class="text-center">Estado del Clima</h1>
+    </div>
+    <div class="container container-form">
+        <form id="pais_form">
+            <div class="form-row justify-content-center">
+                <div class="col-4">
+                    <input id="location" name="location" type="text" class="form-control form-control-lg"
+                        placeholder="Ciudad" required>
+                </div>
+                <div class="col-4">
+                    <button type="submit" class="btn btn-lg btn-primary btn-block">Buscar</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="container section text-center">
+        <p>Datos del clima</p>
+    </div>
+    <div class="container section">
+        <p>Mapa</p>
+    </div>
+</body>
+
+</html>
