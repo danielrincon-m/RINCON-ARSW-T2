@@ -25,7 +25,7 @@ El proyecto puede ser extendido colocando una capa de clima sobre el mapa mostra
 Clone el proyecto utilizando el siguiente comando:
 
 ```
-git clone https://github.com/danielrincon-m/AREP_LAB7.git
+git clone https://github.com/danielrincon-m/RINCON-ARSW-T2.git
 ```
 
 ## Ejecución del proyecto ▶️
