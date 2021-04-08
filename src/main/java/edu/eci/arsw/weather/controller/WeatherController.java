@@ -11,4 +11,9 @@ public class WeatherController {
     public String hello() {
         return "index";
     }
+
+    @RequestMapping(value = "/maps", method = RequestMethod.GET)
+    public String maps() {
+        return "maps";
+    }
 }

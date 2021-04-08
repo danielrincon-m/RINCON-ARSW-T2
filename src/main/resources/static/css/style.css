@@ -9,3 +9,7 @@
 .section h1 {
     margin: 30px auto;
 }
+
+#map {
+    height: 600px;
+}
