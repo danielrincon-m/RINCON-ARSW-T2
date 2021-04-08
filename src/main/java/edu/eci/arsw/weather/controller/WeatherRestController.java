@@ -21,7 +21,8 @@ public class WeatherRestController {
             return new ResponseEntity<>(weatherService.getWeatherData(location), HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("Ha ocurrido un error al procesar la solicitud",
+                    HttpStatus.BAD_REQUEST);
         }
     }
 }
